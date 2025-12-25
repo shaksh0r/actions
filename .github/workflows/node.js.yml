@@ -2,25 +2,16 @@ name: Node.js CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches:
+    - main 
+    - feature/**
+    - docs/**
   pull_request:
     branches: [ "main" ]
 
 jobs:
-  lint:
-    if: github.event_name == 'push'
-    runs-on: ubuntu-latest
 
-    steps:
-    - uses: actions/checkout@v4
-    - name: Use Node.js 
-      uses: actions/setup-node@v4
-      with:
-        node-version: 22.12.0
-        cache: 'npm'
-    - run: npm ci
-    - run: npx eslint .
-  build:
+  pr:
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
 
@@ -35,3 +26,36 @@ jobs:
     - run: npm run build --if-present
     - run: npx eslint .
     - run: npm test
+  main: 
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Use Node.js 
+      uses: actions/setup-node@v4
+      with:
+        node-version: 22.12.0
+        cache: 'npm'
+    - run: npm ci
+    - run: npm run build --if-present
+    - run: npx eslint .
+    - run: npm test
+  feature:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/feature'
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Use Node.js 
+      uses: actions/setup-node@v4
+      with:
+        node-version: 22.12.0
+        cache: 'npm'
+    - run: npm ci
+    - run: npm run build --if-present
+    - run: npm test
+
+  docs:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/docs'
+    runs-on: ubuntu-latest

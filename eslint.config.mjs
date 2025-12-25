@@ -6,7 +6,15 @@ export default [
   {
     files: ["**/*.{js,mjs,cjs}"],
     languageOptions: {
-      globals: globals.browser,
+      globals: {
+        ...globals.node,
+      }
     },
   },
+  {
+    files: ["test/**/*.js"],
+    languageOptions: {
+      globals: globals.jest,
+    }
+  }
 ];

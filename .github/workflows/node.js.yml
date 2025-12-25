@@ -5,6 +5,7 @@ on:
     branches:
     - main 
     - feature/**
+    branches-ignore: 
     - docs/**
   pull_request:
     branches: [ "main" ]
@@ -55,7 +56,3 @@ jobs:
     - run: npm ci
     - run: npm run build --if-present
     - run: npm test
-
-  docs:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/docs'
-    runs-on: ubuntu-latest

@@ -1,10 +1,8 @@
 name: Node.js CI
 
 on:
-  push:
-    branches-ignore: 
-    - "lint-setup"
-    - "docs"
+  push: 
+    branches: ["main"]
   pull_request:
     branches-ignore: 
     - "lint-setup"

@@ -3,10 +3,8 @@ name: Node.js CI
 on:
   push:
     branches:
-    - main 
-    - feature/**
-    branches-ignore: 
-    - docs/**
+      - main 
+      - feature/**
   pull_request:
     branches: [ "main" ]
 
